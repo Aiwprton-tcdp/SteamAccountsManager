@@ -1,0 +1,46 @@
+﻿<Window x:Class="SteamAccountsManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SteamAccountsManager.ViewModels"
+        xmlns:v="clr-namespace:SteamAccountsManager.Views.Pages"
+        d:DataContext="{d:DesignInstance Type=vm:MainVM}"
+        mc:Ignorable="d"
+        Title="SAM"
+        Height="500" Width="350"
+        ResizeMode="NoResize"
+        ShowInTaskbar="True"
+        WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="Manual" Left="0" Top="0">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:AccountsVM}">
+            <v:AccountsPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddAccountsVM}">
+            <v:AddAccountsPage />
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid Margin="20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <ContentControl Content="{Binding Path=CurrentPage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Command="{Binding Path=ShowAccountsPageCommand}"
+                    Content="&#x2756;"
+                    Style="{StaticResource nav}"
+                    Foreground="DodgerBlue"/>
+            <Button Command="{Binding Path=ShowNewAccountsPageCommand}"
+                    Content="&#x271A;"
+                    Style="{StaticResource nav}"
+                    Foreground="Green"/>
+        </StackPanel>
+    </Grid>
+</Window>

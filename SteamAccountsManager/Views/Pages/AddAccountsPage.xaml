@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="SteamAccountsManager.Views.Pages.AddAccountsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SteamAccountsManager.ViewModels"
+             xmlns:templates="clr-namespace:SteamAccountsManager.Views.Templates"
+             d:DataContext="{d:DesignInstance Type=vm:AddAccountsVM}"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="350">
+    <Grid>
+        <templates:LoadingUserControl
+            Panel.ZIndex="1"
+            Visibility="{Binding Loading, Converter={StaticResource booleanToVisibility}}"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <WrapPanel HorizontalAlignment="Stretch"
+                       DockPanel.Dock="Top"
+                       Margin="0,0,0,10">
+                <Button Content="Выбрать файл"
+                        Style="{StaticResource context}"
+                        Foreground="DeepSkyBlue"
+                        Command="{Binding OpenFileCommand}"/>
+                <Label Content=" | "/>
+                <Button Content="Сохранить"
+                        Style="{StaticResource context}"
+                        Foreground="Green"
+                        Command="{Binding SaveDataCommand}"/>
+                <Label Content=" | "/>
+                <Button Content="Стереть"
+                        Style="{StaticResource context}"
+                        Foreground="Red"
+                        Command="{Binding ClearDataCommand}"/>
+            </WrapPanel>
+
+            <TextBox x:Name="text"
+                     Text="{Binding Text}"
+                     VerticalScrollBarVisibility="Auto"
+                     IsReadOnly="False"
+                     Grid.Row="1"
+                     MinHeight="200"
+                     MaxHeight="370"/>
+        </Grid>
+    </Grid>
+</UserControl>

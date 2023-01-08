@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamAccountsManager", "SteamAccountsManager\SteamAccountsManager.csproj", "{CE27E811-0379-47E2-9EA0-896AA2BAC2D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE27E811-0379-47E2-9EA0-896AA2BAC2D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE27E811-0379-47E2-9EA0-896AA2BAC2D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE27E811-0379-47E2-9EA0-896AA2BAC2D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE27E811-0379-47E2-9EA0-896AA2BAC2D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7148D4FA-1F80-4174-9319-D32BED2B3C82}
+	EndGlobalSection
+EndGlobal

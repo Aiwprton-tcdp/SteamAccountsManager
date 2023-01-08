@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="SteamAccountsManager.Views.Templates.LoadingUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+             mc:Ignorable="d"
+             d:DesignHeight="80" d:DesignWidth="80">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="rotate_BeginStoryboard" Storyboard="{StaticResource progress}"/>
+            <BeginStoryboard x:Name="rotate_BeginStoryboard1" Storyboard="{StaticResource rotate}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid Panel.ZIndex="1"
+          Background="White"
+          Opacity="0.9">
+        <Viewbox Stretch="Uniform">
+            <Grid x:Name="grid" Height="600" Width="600">
+                <ed:Arc x:Name="arc"
+                        ArcThickness="7"
+                        EndAngle="-350"
+                        Fill="#FF27D1D1"
+                        Height="100"
+                        HorizontalAlignment="Center"
+                        Stretch="None"
+                        Stroke="Black"
+                        StartAngle="-360"
+                        VerticalAlignment="Center"
+                        Width="100"
+                        RenderTransformOrigin="0.5,0.5"
+                        StrokeThickness="0">
+                    <ed:Arc.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ed:Arc.RenderTransform>
+                </ed:Arc>
+            </Grid>
+        </Viewbox>
+    </Grid>
+</UserControl>
