@@ -1,13 +1,10 @@
-﻿using SteamAccountsManager.ViewModels;
-using System.Windows;
+﻿namespace SteamAccountsManager;
 
-namespace SteamAccountsManager;
-
-public partial class MainWindow : Window
+public partial class MainWindow : System.Windows.Window
 {
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainVM();
+        DataContext = new ViewModels.MainVM();
     }
 }

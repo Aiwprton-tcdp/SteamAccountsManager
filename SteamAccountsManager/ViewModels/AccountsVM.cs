@@ -12,7 +12,6 @@ internal class AccountsVM : BaseViewModel
     ObservableCollection<AccountModel> accountsList;
     bool loading;
 
-    public ObservableCollection<AccountModel> AllAccountsList { get; set; }
     public ObservableCollection<AccountModel> AccountsList
     {
         get => accountsList;
@@ -44,21 +43,24 @@ internal class AccountsVM : BaseViewModel
 
     async Task GetAccounts()
     {
-        var a = await AccountsService.Get();
+        DelayedAccounts = await AccountsService.Get()
+            ?? DelayedAccounts
+            ?? new();
+        
+        for (var i = 0; i < DelayedAccounts.Count; i++)
+        {
+            DelayedAccounts[i].VisualId = i+1;
+        }
 
-        AccountsList = AllAccountsList = a == null || a == default
-            ? PropertiesService.Get<ObservableCollection<AccountModel>>("Accounts")
-            : new ObservableCollection<AccountModel>(a);
-
-        PropertiesService.Set("Accounts", AllAccountsList);
+        AccountsList = new ObservableCollection<AccountModel>(DelayedAccounts);
         Loading = false;
     }
 
     static void OpenAccount(object a)
     {
-        new AccountWindow
+        new AccountWindow()
         {
-            DataContext = (AccountModel)a
+            DataContext = new AccountVM((AccountModel)a)
         }.Show();
     }
 }

@@ -9,12 +9,12 @@ internal class Command<T> : ICommand
     readonly Predicate<T> _canExecute;
 
     
-    public Command(Action<T> execute) : this(execute, null)
+    public Command(Action<T?> execute) : this(execute, null)
     {
         _execute = execute;
     }
 
-    public Command(Action<T> execute, Predicate<T> canExecute = null)
+    public Command(Action<T?> execute, Predicate<T?> canExecute = null)
     {
         _execute = execute;
         _canExecute = canExecute;

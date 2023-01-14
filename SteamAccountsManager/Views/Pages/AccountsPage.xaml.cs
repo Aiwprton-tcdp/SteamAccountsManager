@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.Logging;
-using SteamAccountsManager.Models;
+﻿using SteamAccountsManager.Models;
 using SteamAccountsManager.ViewModels;
 using SteamAccountsManager.Views.Windows;
 using System.Collections.ObjectModel;
@@ -22,31 +21,29 @@ public partial class AccountsPage : UserControl
     }
 
 
-    void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+    void AccountsSearch(object s, TextChangedEventArgs e)
     {
         var st = search.Text.Trim();
 
-        if (string.IsNullOrEmpty(st))
-        {
-            VM.AccountsList = VM.AllAccountsList;
-            return;
-        }
+        var accs = string.IsNullOrEmpty(st)
+            ? BaseViewModel.DelayedAccounts
+            : BaseViewModel.DelayedAccounts.Where(a =>
+            a.Id.ToString().Contains(st) || a.Login.Contains(st));
 
-        var accs = VM.AllAccountsList.Where(a => a.Id.ToString().Contains(st) || a.Login.Contains(st));
         VM.AccountsList = new ObservableCollection<AccountModel>(accs);
     }
 
-    void ClearSearchButton_Click(object sender, RoutedEventArgs e)
+    void AccountsSearchClear(object s, RoutedEventArgs e)
     {
-        search.Text = "";
+        search.Text = string.Empty;
     }
 
-    void OpenAccount(object sender, RoutedEventArgs e)
+    void OpenAccount(object s, RoutedEventArgs e)
     {
-        var a = ((Button)sender).Tag;
-        new AccountWindow
+        var a = (s as Button).Tag;
+        new AccountWindow()
         {
-            DataContext = (AccountModel)a
+            DataContext = new AccountVM((AccountModel)a)
         }.Show();
     }
 }

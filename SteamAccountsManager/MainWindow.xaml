@@ -29,18 +29,37 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <ContentControl Content="{Binding Path=CurrentPage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <ContentControl Content="{Binding Path=CurrentPage}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Command="{Binding Path=ShowAccountsPageCommand}"
+            <Button Command="{Binding ShowAccountsPageCommand}"
                     Content="&#x2756;"
                     Style="{StaticResource nav}"
+                    ToolTip="Список аккаунтов"
                     Foreground="DodgerBlue"/>
-            <Button Command="{Binding Path=ShowNewAccountsPageCommand}"
+            <Button Command="{Binding ShowNewAccountsPageCommand}"
                     Content="&#x271A;"
                     Style="{StaticResource nav}"
+                    ToolTip="Добавить аккаунты"
                     Foreground="Green"/>
+            <Button Command="{Binding CheckAccountsCommand}"
+                    ToolTip="Проверить аккаунты">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource nav}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsChecking}" Value="True">
+                                <Setter Property="Foreground" Value="OrangeRed"/>
+                                <Setter Property="Content" Value="&#10006;"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsChecking}" Value="False">
+                                <Setter Property="Foreground" Value="GreenYellow"/>
+                                <Setter Property="Content" Value="&#x2714;"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

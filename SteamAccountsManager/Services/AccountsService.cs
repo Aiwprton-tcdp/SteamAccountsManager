@@ -25,4 +25,10 @@ internal static class AccountsService
         var count = await RequestService.Post<List<AccountModel>, int>(URL, data);
         return count > 0;
     }
+
+    public static async Task<bool> CheckAvailability(int id)
+    {
+        var url = $"{URL}/{id}/check";
+        return await RequestService.Get<bool>(url);
+    }
 }

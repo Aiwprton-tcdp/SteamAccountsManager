@@ -2,7 +2,7 @@
 
 namespace SteamAccountsManager.ViewModels;
 
-class AccountVM : BaseViewModel
+internal class AccountVM : BaseViewModel
 {
     AccountModel accountData;
 

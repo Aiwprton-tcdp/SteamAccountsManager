@@ -1,45 +1,39 @@
 ﻿using System.Diagnostics;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 
 namespace SteamAccountsManager.Services;
 
-internal static partial class NetworkService
+internal static class NetworkService
 {
-    [LibraryImport("wininet.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool InternetGetConnectedState(out int description, int reservedValue);
-
-
     public static bool IsReady()
     {
-        return IsInternetAvailable();// && PingHost();
+        var ok = IsInternetAvailable();
+        App.HAS_INTERNET = ok;
+        return ok;
     }
 
     public static bool IsNotReady() => !IsReady();
 
     static bool IsInternetAvailable()
     {
-        return InternetGetConnectedState(out _, 0);
+        return NetworkInterface.GetIsNetworkAvailable() &&
+            new Ping().Send(new IPAddress(new byte[] { 8, 8, 8, 8 }), 2000).Status == IPStatus.Success;
     }
 
     static bool PingHost()
     {
         var pingable = false;
-        using var pinger = new Ping();
 
         try
         {
-            PingReply reply = pinger.Send(App.LOCALHOST);
+            PingReply reply = new Ping().Send("127.0.0.1", 8080);
             pingable = reply.Status == IPStatus.Success;
         }
-        catch (PingException e)
+        catch (System.Exception e)
         {
             Debug.WriteLine(e.InnerException.Message);
-        }
-        finally
-        {
-            pinger?.Dispose();
         }
 
         return pingable;

@@ -1,11 +1,14 @@
-﻿using System.ComponentModel;
+﻿using SteamAccountsManager.Models;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace SteamAccountsManager.ViewModels;
 
 internal class BaseViewModel : INotifyPropertyChanged
 {
-    public static object CurrentVM { get; set; } = new AccountsVM();
+    public static BaseViewModel CurrentVM { get; set; } = new AccountsVM();
+    public static List<AccountModel> DelayedAccounts { get; set; }
 
 
     #region INotifyPropertyChanged
@@ -13,13 +16,7 @@ internal class BaseViewModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
-        PropertyChangedEventHandler changed = PropertyChanged;
-        if (changed == null)
-        {
-            return;
-        }
-
-        changed.Invoke(this, new(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

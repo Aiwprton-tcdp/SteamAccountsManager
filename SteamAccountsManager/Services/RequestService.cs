@@ -12,43 +12,35 @@ internal static class RequestService
     public static async Task<T?> Get<T>(string url)
     {
         if (NetworkService.IsNotReady()) return default;
-
-        using var client = new HttpClient();
-        ResponseModel<T?> response = null;
-
+        ResponseModel<T?> response;
         try
         {
-            response = await client.GetFromJsonAsync<ResponseModel<T?>>(url);
+            response = await new HttpClient().GetFromJsonAsync<ResponseModel<T?>>(url);
         }
         catch (Exception e)
         {
             Debug.WriteLine(e.Message);
             return default;
         }
-        finally { client.Dispose(); }
 
-        return response != null ? response.Data : default;
+        return response.Data;
     }
 
     public static async Task<U> Post<T, U>(string url, T data)
     {
         if (NetworkService.IsNotReady()) return default;
-
-        using var client = new HttpClient();
-        HttpResponseMessage response = null;
-
+        HttpResponseMessage response;
         try
         {
-            response = await client.PostAsJsonAsync(url, data);
+            response = await new HttpClient().PostAsJsonAsync(url, data);
         }
         catch (Exception e)
         {
             Debug.WriteLine(e.Message);
             return default;
         }
-        finally { client.Dispose(); }
 
-        if (!response.IsSuccessStatusCode || response == null) return default;
+        if (response == null || !response.IsSuccessStatusCode) return default;
 
         var result = await response.Content.ReadFromJsonAsync<ResponseModel<U>>();
         return result.Data;

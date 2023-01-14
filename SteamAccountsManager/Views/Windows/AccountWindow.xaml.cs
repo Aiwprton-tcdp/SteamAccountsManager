@@ -1,8 +1,6 @@
-﻿using System.Windows;
+﻿namespace SteamAccountsManager.Views.Windows;
 
-namespace SteamAccountsManager.Views.Windows;
-
-public partial class AccountWindow : Window
+public partial class AccountWindow : System.Windows.Window
 {
     public AccountWindow()
     {

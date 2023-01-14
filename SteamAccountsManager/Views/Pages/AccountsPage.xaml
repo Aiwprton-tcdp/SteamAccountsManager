@@ -49,11 +49,11 @@
                 <Label Content="Поиск"/>
                 <TextBox x:Name="search"
                          MinWidth="100"
-                         TextChanged="TextBox_TextChanged"/>
+                         TextChanged="AccountsSearch"/>
                 <Button Content="Сбросить"
                         Style="{StaticResource context}"
                         Foreground="Red"
-                        Click="ClearSearchButton_Click"/>
+                        Click="AccountsSearchClear"/>
             </WrapPanel>
 
             <StackPanel Grid.Row="1">
@@ -69,11 +69,22 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Content="{Binding Id}"
+                                <Label Content="{Binding VisualId}"
+                                       ToolTip="{Binding Id}"
                                        Padding="0,5"/>
                                 <Label Content="{Binding Login}"
                                        ContextMenu="{StaticResource acm}"
-                                       Grid.Column="1"/>
+                                       Grid.Column="1">
+                                    <Label.Style>
+                                        <Style TargetType="{x:Type Label}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Blocked}" Value="True">
+                                                    <Setter Property="Foreground" Value="OrangeRed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
                                 <Button Content="GC &#128462;"
                                         Style="{StaticResource context}"
                                         ToolTip="Скопировать"

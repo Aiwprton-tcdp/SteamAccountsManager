@@ -22,10 +22,10 @@
             <WrapPanel HorizontalAlignment="Stretch"
                        DockPanel.Dock="Top"
                        Margin="0,0,0,10">
-                <Button Content="Выбрать файл"
+                <Button Content="Выбрать аккаунты"
                         Style="{StaticResource context}"
                         Foreground="DeepSkyBlue"
-                        Command="{Binding OpenFileCommand}"/>
+                        Command="{Binding GetAcccountsCommand}"/>
                 <Label Content=" | "/>
                 <Button Content="Сохранить"
                         Style="{StaticResource context}"
@@ -39,7 +39,7 @@
             </WrapPanel>
 
             <TextBox x:Name="text"
-                     Text="{Binding Text}"
+                     Text="{Binding AccountsText}"
                      VerticalScrollBarVisibility="Auto"
                      IsReadOnly="False"
                      Grid.Row="1"

@@ -3,20 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:m="clr-namespace:SteamAccountsManager.Models"
-        d:DataContext="{d:DesignInstance Type=m:AccountModel}"
+        xmlns:vm="clr-namespace:SteamAccountsManager.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:AccountVM}"
         mc:Ignorable="d"
         Height="200" Width="300"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="Manual">
-    <Grid>
+
+    <Grid DataContext="{Binding AccountData}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -48,6 +51,22 @@
                     ToolTip="Скопировать"
                     Command="{Binding CopyData}"
                     CommandParameter="{Binding SteamId}"/>
+        </WrapPanel>
+        <WrapPanel Orientation="Horizontal" Grid.Row="3">
+            <Label Content="Guard-code:"/>
+            <Button Content="Скопировать"
+                    Grid.Column="1"
+                    Style="{StaticResource context}"
+                    Command="{Binding CopyGuardCode}"
+                    CommandParameter="{Binding Id}"/>
+        </WrapPanel>
+        <WrapPanel Orientation="Horizontal" Grid.Row="4">
+            <Label Content="Blocked:"/>
+            <Button Content="Проверить"
+                    Grid.Column="1"
+                    Style="{StaticResource context}"
+                    Command="{Binding CheckAvailability}"
+                    CommandParameter="{Binding Id}"/>
         </WrapPanel>
     </Grid>
 </Window>
